@@ -1,0 +1,8 @@
+.DS_Store
+
+mimosa-config-documented.coffee
+
+assets/*/lib
+.env
+node_modules
+public
