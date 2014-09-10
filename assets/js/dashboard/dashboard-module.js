@@ -42,6 +42,7 @@ define(['angular', 'lodash'], function(ng, _){
   module.directive('termCounter', [function(){
     return {
       restrict: 'E',
+      replace: true,
       templateUrl: 'js/dashboard/templates/term-counter.template',
       scope: { model: '=' }
     };

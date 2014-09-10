@@ -1,5 +1,5 @@
-.content
+.container-fluid
   h1.header Vulgar Tweet Stream
   ul.dashboard
-    li.item(ng-repeat="termCounterModel in model | orderBy:value:true")
+    li.item(ng-repeat="termCounterModel in model")
       term-counter(model="termCounterModel")
