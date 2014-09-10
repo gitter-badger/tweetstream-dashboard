@@ -55,5 +55,8 @@ module.exports = function(app, services){
     });
   });
 
+  app.get('/api/heartbeat', function(req, res){
+    res.json({ 'status': 'up' });
+  });
 };
 
