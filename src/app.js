@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -6,6 +5,10 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   config = require('./config');
+
+if(config.isProduction){
+  require('newrelic');
+}
 
 var app = module.exports = express();
 
@@ -21,14 +24,6 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static('public'));
 
-// development only
-if (!config.isProduction) {
-  //app.use(errorHandler());
-}
-// production only
-else {
-  require('newrelic');
-}
 
 var routes = require('./routes/api'),
 mongo = require('mongodb'),
