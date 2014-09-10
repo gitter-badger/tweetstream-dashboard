@@ -12,10 +12,10 @@
         exports: 'angular'
       },
       'angular-route' : ['angular'],
-      'dashapp' : ['angular-route', 'analytics']
+      'dashapp' : ['angular-route']
     }
   });
-  require(['angular', 'dashapp'], function(ng, application){
+  require(['angular', 'dashapp', 'analytics'], function(ng, application){
     ng.element(document).ready(function(){
       ng.bootstrap(document, [application.name]);
     });
