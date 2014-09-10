@@ -32,6 +32,8 @@ exports.config =
     views:
       path: 'src/views'
     port: 3000
+  require:
+    commonConfig: 'commonConfig'
 
   liveReload:
     enabled:true

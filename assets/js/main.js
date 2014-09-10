@@ -1,6 +1,4 @@
-(function(require, document){
-  'use strict';
-  var config = {
+  require.config({
     urlArgs: (new Date()).getTime(),
     baseUrl: '/js',
     paths:{
@@ -16,12 +14,10 @@
       'angular-route' : ['angular'],
       'dashapp' : ['angular-route']
     }
-  };
-
-  require(config, ['angular', 'dashapp'], function(ng, application){
+  });
+  require(['angular', 'dashapp'], function(ng, application){
     ng.element(document).ready(function(){
       ng.bootstrap(document, [application.name]);
     });
   });
 
-}(requirejs, document));
