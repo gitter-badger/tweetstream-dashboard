@@ -1,7 +1,7 @@
 define(['angular', 'templates', 'dashboard/dashboard-module'], 
 function(ng, templates, dashboardModule){
   'use strict';
-  var module = ng.module('dashboard-application.module', [ 'ngRoute', dashboardModule.name ]);
+  var module = ng.module('dashboard-application.module', [ 'ngRoute', 'google-maps', dashboardModule.name ]);
 
   module.run(['templateProvider', function(tp){
   }]);

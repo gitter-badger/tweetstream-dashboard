@@ -4,6 +4,7 @@
     paths:{
       'angular':'lib/angular/angular',
       'angular-route':'lib/angular-route/angular-route',
+      'angular-maps':'lib/angular-google-maps/angular-google-maps',
       'lodash' : 'lib/lodash/lodash.compat',
       'dashapp' : 'dashboard-application',
     },
@@ -11,8 +12,9 @@
       'angular': { 
         exports: 'angular'
       },
+      'angular-maps': ['angular'],
       'angular-route' : ['angular'],
-      'dashapp' : ['angular-route']
+      'dashapp' : ['angular-route', 'angular-maps']
     }
   });
   require(['angular', 'dashapp', 'analytics'], function(ng, application){

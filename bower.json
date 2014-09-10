@@ -5,6 +5,7 @@
     "requirejs": "2.1.8",
     "angular": "~1.2.23",
     "angular-route": "~1.2.23",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "angular-google-maps": "~1.2.1"
   }
 }
