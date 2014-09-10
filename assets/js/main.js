@@ -12,7 +12,7 @@
         exports: 'angular'
       },
       'angular-route' : ['angular'],
-      'dashapp' : ['angular-route']
+      'dashapp' : ['angular-route', 'analytics']
     }
   });
   require(['angular', 'dashapp'], function(ng, application){
