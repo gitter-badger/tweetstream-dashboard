@@ -47,4 +47,5 @@ mongo.connect(config.mongoDb, function(err, db){
 app.get('/', function(req, res){ res.render('index', config.view_params ); });
 
 app.listen(config.port);
+console.info('app running in', config.isProduction ? 'production' : 'development' ,'mode');
 console.info('A comprehensive listing of vulgar phrases awaits you on port ' + config.port);

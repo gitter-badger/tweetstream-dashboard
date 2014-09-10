@@ -8,6 +8,7 @@ var environment = process.env.NODE_ENV || "development",
 
 module.exports = {
   app_name : appName,
+  isProduction: isProduction,
   environment: environment,
   port: process.env.PORT || 3001,
   mongoDb: process.env.MONGOHQ_URL || "",
