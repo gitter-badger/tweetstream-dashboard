@@ -31,4 +31,8 @@ exports.config =
       onePager: true
     views:
       path: 'src/views'
-    port: 3001
+    port: 3000
+
+  liveReload:
+    enabled:true
+    additionalDirs: ['./src', './src/routes', './src/views']

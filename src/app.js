@@ -2,71 +2,54 @@
 /**
  * Module dependencies
  */
-
 var express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
-  errorHandler = require('errorHandler'),
-  morgan = require('morgan'),
-  routes = require('./routes'),
-  http = require('http'),
-  path = require('path'),
   config = require('./config');
 
 var app = module.exports = express();
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 /**
  * Configuration
  */
-
-// all environments
-app.set('port', config.port);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(morgan('dev'));
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
-app.use(bodyParser.json())
-
-app.use(methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
-
-var env = config.environment;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(express.static('public'));
 
 // development only
-if (env === 'development') {
-  config.app_name += ' dev'
-  app.use(errorHandler());
+if (!config.isProduction) {
+  //app.use(errorHandler());
 }
-
 // production only
-if (env === 'production') {
+else {
   require('newrelic');
 }
 
+var routes = require('./routes/api'),
+mongo = require('mongodb'),
+redis = require('redis'),
+redisConfig = config.redis;
 
-/**
- * init services
- */
-var mongoDb = require('mongodb'),
-redisDriver = require('then-redis');
 
-mongoDb.connect(config.mongoDb, function(err, db){
-  var redisClient = redisDriver.createClient(config.redis);
+mongo.connect(config.mongoDb, function(err, db){
+  if(err) throw err;
 
-  var counterProvider = require('./counterProvider')(db, redisClient);
-
-  /**
-   * let routes module init
-   */
-   routes(app, { counterProvider: counterProvider });
+  var redisClient = redis.createClient(redisConfig.port, redisConfig.host);
+  redisClient.auth(config.redis.auth.pass, function(){
+    var services = {
+        db: db,
+        redis: redisClient
+    };
+    routes(app, services);
+  });
 });
 
+app.get('/', function(req, res){ res.render('index', config.view_params ); });
 
-/**
- * Start Server
- */
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+app.listen(config.port);
+console.info('A comprehensive listing of vulgar phrases awaits you on port ' + config.port);

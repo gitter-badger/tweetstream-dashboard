@@ -6,3 +6,4 @@ assets/*/lib
 .env
 node_modules
 public
+.mimosa

@@ -1,19 +1,13 @@
 var config = require('../config'),
-cacheBust = !config.isProduction ? "?cachebust=" + (new Date()).getTime() : "";
+    express = require('express');
 
-/*
- * GET home page.
- */
-exports = function(app, services) {
+module.exports.init = function(app, services){
+  /*
+   * GET home page.
+   */
 
-  app.get('/', function(req, res){
-    var developmentMode = !config.isProduction;
-    res.render('index', { optimize: config.isProduction, reload : developmentMode, cachebust: cachebust});
-  });
-
-  var api = require('./api');
-  api(app, services);
-
-  app.get('*');
-
+  /*
+   * GET json and SSE
+   */
+  var api = require('./api')(app, services);
 };
