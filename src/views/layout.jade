@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href='/css/app.css' + cachebust)
     link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/superhero/bootstrap.min.css", rel="stylesheet")
 
-  body
+  body(ng-strict-di)
     block content
 
     if reload
