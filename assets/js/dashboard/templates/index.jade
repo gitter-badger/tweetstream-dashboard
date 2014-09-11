@@ -1,4 +1,7 @@
 .container-fluid
+  p Below is a listing of how many times a dirty word has been used out of the {{ all_time }} tweets we've processed.
+  p Take a look at the 
+    a(href="/map") Map
   ul.dashboard
     li.item(ng-repeat="termCounterModel in model")
       term-counter(model="termCounterModel")

@@ -5,7 +5,7 @@ define(['angular', 'lodash'], function(ng, _){
     module.config(['$routeProvider', function($rp){
       $rp.when('/map', {
         controller: 'MapController',
-        templateUrl: 'js/maps/tempaltes/maps-view.template'
+        templateUrl: 'js/maps/templates/map-view.template'
       });
     }]);
 

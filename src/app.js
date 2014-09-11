@@ -41,10 +41,10 @@ mongo.connect(config.mongoDb, function(err, db){
         redis: redisClient
     };
     routes(app, services);
+    app.get('*', function(req, res){ res.render('index', config.view_params ); });
   });
 });
 
-app.get('/', function(req, res){ res.render('index', config.view_params ); });
 
 app.listen(config.port);
 console.info('app running in', config.isProduction ? 'production' : 'development' ,'mode');
