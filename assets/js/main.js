@@ -13,14 +13,13 @@
       'angular': { 
         exports: 'angular'
       },
-      'angular-maps': ['angular'],
+      'angular-maps': ['angular', 'lodash'],
       'angular-route' : ['angular'],
       'angular-ui' : ['angular'],
       'dashapp' : ['angular-route', 'angular-maps', 'angular-ui']
     }
   });
-  require(['angular', 'dashapp', 'lodash', 'analytics'], function(ng, application, _){
-    window._ = _;
+  require(['angular', 'dashapp', 'analytics'], function(ng, application){
     ng.element(document).ready(function(){
       ng.bootstrap(document, [application.name]);
     });

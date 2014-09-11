@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "start node node_modules/mimosa/bin/mimosa watch -sd && forego.exe start -f localproc",
+    "prod": "start node node_modules/mimosa/bin/mimosa watch -sod && forego.exe start -f localproc",
     "postinstall": "node node_modules/mimosa/bin/mimosa build -omp",
     "start": "node src/app.js"
   },
