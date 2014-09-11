@@ -1,8 +1,9 @@
-define(['angular', 'templates', 'dashboard/dashboard-module'], 
-function(ng, templates, dashboardModule){
+define(['angular', 'templates', 'dashboard/dashboard-module', 'maps/maps-module'], 
+function(ng, templates, dashboardModule, mapsModule){
   'use strict';
   var module = ng.module('dashboard-application.module', [ 'ngRoute', 'google-maps', 'ui.bootstrap', 
-    dashboardModule.name ]);
+    dashboardModule.name,
+    mapsModule.name ]);
 
   module.config(['$routeProvider', '$locationProvider', function($rp, $locationProvider){
     $locationProvider.html5Mode(true);
