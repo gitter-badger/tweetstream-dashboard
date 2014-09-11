@@ -17,10 +17,14 @@ define(['angular', 'lodash'], function(ng, _){
 
     dashApi.counter().success(function(item){
       updateModel(item);
+      $scope.all_time = 0;
       var eventStream = new EventSource('/api/eventstream');
       eventStream.addEventListener('update', function(model){
         var kvp = JSON.parse(model.data);
-        batch[kvp.key] = kvp;
+        if (kvp.key == "all_time")
+          $scope.all_time = kvp.value;
+        else
+          batch[kvp.key] = kvp;
       });
     }).then(function(){
       setInterval(function(){
