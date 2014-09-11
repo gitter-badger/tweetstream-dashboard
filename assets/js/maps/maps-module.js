@@ -9,12 +9,11 @@ define(['angular', 'lodash'], function(ng, _){
       });
     }]);
 
-
-    module.controller('MapController', ['$scope', function($scope){
+    module.controller('MapController', ['$scope', 'tweetApi', function($scope, tweetApi){
+      tweetApi.geo().success(function(data){
+        $scope.geoData = data;
+      });
     }]);
-
-
-    module.factory('', ['$http', function($http){}]);
 
     return module;
 });

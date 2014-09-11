@@ -9,15 +9,14 @@ define(['angular', 'lodash'], function(ng, _){
     });
   }]);
 
-  module.controller('DashboardController', ['$scope', '$http', function($scope, $http){
+  module.controller('DashboardController', ['$scope', 'dashboardApi', function($scope, dashApi){
     var batch = {},
     updateModel = function(items){
       $scope.model = _.sortBy(items, function(element) { return -element.value; });
     };
 
-    $http.get('/api/counter').success(function(item){
+    dashApi.counter().success(function(item){
       updateModel(item);
-
       var eventStream = new EventSource('/api/eventstream');
       eventStream.addEventListener('update', function(model){
         var kvp = JSON.parse(model.data);
