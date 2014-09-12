@@ -20,7 +20,7 @@ module.exports = {
       pass: auth[1] 
     }
   },
-  new_relic_license_key : 'dbfe171960e800ab83f8cc7e2e308b772d442379',
+  new_relic_license_key : process.env['NEW_RELIC_LICENSE_KEY'],
   counter_name: 'live_counter',
   view_params: { 
     optimize: isProduction,
