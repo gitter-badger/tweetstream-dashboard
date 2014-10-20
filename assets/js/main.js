@@ -1,3 +1,4 @@
+
   require.config({
     urlArgs: (new Date()).getTime(),
     baseUrl: '/js',
@@ -19,6 +20,7 @@
       'dashapp' : ['angular-route', 'angular-maps', 'angular-ui']
     }
   });
+
   require(['angular', 'dashapp', 'analytics'], function(ng, application){
     ng.element(document).ready(function(){
       ng.bootstrap(document, [application.name]);

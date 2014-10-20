@@ -1,1 +1,1 @@
-web: supervisor src/app.js
+web: supervisor --debug -n error -- src/app.js
