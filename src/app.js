@@ -34,14 +34,18 @@ redisConfig = config.redis;
 mongo.connect(config.mongoDb, function(err, db){
   if(err) throw err;
 
-  var redisClient = redis.createClient(redisConfig.port, redisConfig.host);
-  redisClient.auth(config.redis.auth.pass, function(){
-    var services = {
-        db: db,
-        redis: redisClient
-    };
-    routes(app, services);
-    app.get('*', function(req, res){ res.render('index', config.view_params ); });
+  var redisPub = redis.createClient(redisConfig.port, redisConfig.host);
+  redisPub.auth(config.redis.auth.pass, function(){
+    var redisKvp = redis.createClient(redisConfig.port, redisConfig.host);
+    redisKvp.auth(config.redis.auth.pass, function(){
+      var services = {
+          db: db,
+          redis_pub: redisPub,
+          redis_kvp: redisKvp
+      };
+      routes(app, services);
+      app.get('*', function(req, res){ res.render('index', config.view_params ); });
+    });
   });
 });
 

@@ -4,23 +4,27 @@ _ = require('lodash');
 module.exports = function(app, services){
 
   var db = services.db,
-  counters = db.collection('counter'),
-  redisPubSub = services.redis, 
+  counters = db.collection('live_list'),
+  redisPubSub = services.redis_pub,
+  rediskvp = services.redis_kvp,
   subscribers = [],
   getCounter = function(callback){
-    counters.findOne({ name: config.counter_name }, function(err, model){
-      var transformedModel = [];
-      for (var key in model.model) {
-        transformedModel.push({ key: key, value: model.model[key] });
-      }
+    counters.find({ enabled: true }).toArray(function(err, counters){
+      var transformedModel = counters.map(function(item){ 
+        return { key: item.term, value: item.count };
+      });
       callback(transformedModel);
     });
   };
 
   redisPubSub.on('message', function(channel, message) {
-    subscribers.forEach(function(res){
-       res.write('event: update\n');
-       res.write('data: ' + message + ' \n\n');
+    var key = JSON.parse(message);
+
+    rediskvp.get(key.key, function(err, value){
+      subscribers.forEach(function(res){
+         res.write('event: update\n');
+         res.write('data: ' + "{ \"key\":\"" + key.key + "\", \"value\":\"" + value + "\"}" + ' \n\n');
+      });
     });
   });
 
@@ -35,7 +39,7 @@ module.exports = function(app, services){
   });
 
   /*
-   * Serve JSON to our AngularJS client
+   * Serve JSON event stream to our AngularJS client
    */
   app.get('/api/eventstream', function (req, res) {
     req.socket.setTimeout(Infinity);

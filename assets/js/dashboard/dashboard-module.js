@@ -14,12 +14,12 @@ define(['angular', 'lodash'], function(ng, _){
     updateModel = function(items){
       $scope.model = _.sortBy(items, function(element) { return -element.value; });
     },
-	 all_time = 0;
+   all_time = 0;
     dashApi.counter().success(function(item){
       updateModel(item);
       $scope.all_time = 0;
-			
-			var eventStream = new EventSource('/api/eventstream');
+      
+      var eventStream = new EventSource('/api/eventstream');
       eventStream.addEventListener('update', function(model){
         var kvp = JSON.parse(model.data);
         if (kvp.key == "all_time")
@@ -37,7 +37,7 @@ define(['angular', 'lodash'], function(ng, _){
            .value();
 
           updateModel($scope.model);
-					$scope.all_time = all_time;
+          $scope.all_time = all_time;
           $scope.$digest();
         }
       }, 60);

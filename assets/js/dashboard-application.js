@@ -6,8 +6,9 @@ function(ng, templates, dashboardModule, mapsModule){
     mapsModule.name 
   ]);
 
-  module.config(['$routeProvider', '$locationProvider', function($rp, $locationProvider){
-    $locationProvider.html5Mode(true);
+  module.config(['$locationProvider', '$compileProvider', function($locationProvider, $cp){
+    $cp.debugInfoEnabled(false);
+    $locationProvider.html5Mode({ enabled: true, requireBase: false });
   }]);
 
   module.run(['templateProvider', function(tp){

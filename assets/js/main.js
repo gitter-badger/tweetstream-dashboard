@@ -1,6 +1,6 @@
 
   require.config({
-    urlArgs: (new Date()).getTime(),
+    // urlArgs: (new Date()).getTime(),
     baseUrl: '/js',
     paths:{
       'angular':'lib/angular/angular',
@@ -22,6 +22,7 @@
   });
 
   require(['angular', 'dashapp', 'analytics'], function(ng, application){
+    'use strict';
     ng.element(document).ready(function(){
       ng.bootstrap(document, [application.name]);
     });
